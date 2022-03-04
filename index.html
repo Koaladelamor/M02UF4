@@ -2,9 +2,61 @@
 
 <html>
 
+<head>
+<title>TFFHD App</title>
+</head>
+
+
 <body>
 
-<h1> TFFHD </h1>
+<h1> Too Fast Family HD</h1>
+
+<main>
+<section id="characters">
+	<ul id="characters-list">
+
+	</ul>
+</section>
+</main>
+
+<script>
+
+function charactersList(data){
+
+	let list = "";
+
+	for (let i = 0; i < data.length; i++){
+		list += "<li>"+data[i].name+"</li>";
+
+	}
+
+	document.getElementById("characters-list").innerHTML = list;
+	
+}
+
+let characters_interval = setInterval(function(){
+	fetch("/characters")
+		.then(response => response.json())
+		.then(data => charactersList(data));
+
+}, 2000);
+
+//fetch("/characters")
+	/*
+	.then(function(response){
+		return response.json();
+	})
+	*/
+//		.then(response => response.json())  //arrow function
+		/*									//se puede obviar el return y simplificar la estructura si solo hay una linea
+		.then(function(data){				//si hay solo un parametro, no hace falta parentesi
+			console.log(data);				//
+		});
+		*/
+		//.then(data => charactersList(data));
+
+</script>
+
 
 </body>
 

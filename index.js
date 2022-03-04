@@ -1,5 +1,7 @@
 #!/usr/bin/node
 
+let fs = require("fs");
+
 let http = require("http");
 
 let mongo_client = require("mongodb").MongoClient;
@@ -31,7 +33,15 @@ http.createServer(function(request, response){
 	let archivo = "index.html";	
 
 	if (request.url == "/") {
-		response.end();
+		
+		fs.readFile(archivo, function(error, data){
+			if (error) {
+				console.log("error");
+				return;
+			}
+			response.writeHead(200, {"Content-Type": "text/html"});
+			response.end(data);
+		});
 		return;
 	}
 
