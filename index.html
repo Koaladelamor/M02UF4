@@ -12,35 +12,60 @@
 <h1> Too Fast Family HD</h1>
 
 <main>
+
 <section id="characters">
 	<ul id="characters-list">
 
 	</ul>
 </section>
+
+<section id="items">
+	<ul id= "items-list">
+
+	</ul>
+</section>
+
 </main>
+
+
 
 <script>
 
 function charactersList(data){
-
 	let list = "";
-
 	for (let i = 0; i < data.length; i++){
-		list += "<li>"+data[i].name+"</li>";
-
+		list += "<li>"+data[i].name+" Level "+data[i].level+"</li>";
 	}
-
 	document.getElementById("characters-list").innerHTML = list;
-	
 }
 
 let characters_interval = setInterval(function(){
 	fetch("/characters")
 		.then(response => response.json())
 		.then(data => charactersList(data));
-
 }, 2000);
 
+function itemsList(data){
+	let list = "";
+	for (let i = 0; i < data.length; i++){
+		list += "<li>"+data[i].item+" "+data[i].damage+" damage"+" "+data[i].price+" coins"+"</li>";
+	}
+	document.getElementById("items-list").innerHTML = list;
+}
+
+let items_interval = setInterval(function(){
+	fetch("/items")
+		.then(response => response.json())
+		.then(data => itemsList(data));
+}, 2000);
+
+fetch("/characters")
+	.then(response => response.json())
+	.then(data => charactersList(data));
+
+fetch("/items")
+	.then(response => response.json())
+	.then(data => itemsList(data));
 //fetch("/characters")
 	/*
 	.then(function(response){
