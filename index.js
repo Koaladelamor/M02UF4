@@ -31,6 +31,7 @@ mongo_client.connect(url, function(error, conn){
 function send_data_list (db, req, res) {
 
 	let col = "";
+	let col_data;
 
 	if(req.url == "/characters"){
 		col = "characters";
@@ -49,7 +50,14 @@ function send_data_list (db, req, res) {
 		return;
 	}
 
-	let col_data = db.collection(col).find({}, { projection: { name:1 }});
+	if(col == "items"){
+		col_data = db.collection(col).find({}, { projection: { item:1 }});
+		
+	}
+	else {
+		col_data = db.collection(col).find({}, { projection: { name:1 }});
+	}
+
 
 	col_data.toArray(function(error, data){
 		let string = JSON.stringify(data);

@@ -53,17 +53,17 @@ function charactersList(data){
 	document.getElementById("characters-list").innerHTML = list;
 }
 
-let characters_interval = setInterval(function(){
-	load_data_characters();
-}, 2000);
-
 function itemsList(data){
 	let list = "";
 	for (let i = 0; i < data.length; i++){
-		list += "<li>"+data[i].item+" "+data[i].damage+" damage"+" "+data[i].price+" coins"+"</li>";
+		list += '<li><a href="/items/'+data[i]._id+'">'+data[i].item+"</li>";
 	}
 	document.getElementById("items-list").innerHTML = list;
 }
+
+let characters_interval = setInterval(function(){
+	load_data_characters();
+}, 2000);
 
 let items_interval = setInterval(function(){
 	fetch("/items")
