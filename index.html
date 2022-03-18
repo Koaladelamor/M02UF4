@@ -14,12 +14,14 @@
 <main>
 
 <section id="characters">
+	<h2>Personajes</h2>
 	<ul id="characters-list">
 
 	</ul>
 </section>
 
 <section id="items">
+	<h2>Items</h2>
 	<ul id= "items-list">
 
 	</ul>
@@ -31,18 +33,28 @@
 
 <script>
 
+function load_data_characters () {
+fetch("/characters")
+	.then(response => response.json())
+	.then(data => charactersList(data));
+}
+
+function load_data_items () {	
+	fetch("/items")
+		.then(response => response.json())
+		.then(data => itemsList(data));
+}
+
 function charactersList(data){
 	let list = "";
 	for (let i = 0; i < data.length; i++){
-		list += "<li>"+data[i].name+" Level "+data[i].level+"</li>";
+		list += '<li><a href="/characters/'+data[i]._id+'">'+data[i].name+'</a></li>';
 	}
 	document.getElementById("characters-list").innerHTML = list;
 }
 
 let characters_interval = setInterval(function(){
-	fetch("/characters")
-		.then(response => response.json())
-		.then(data => charactersList(data));
+	load_data_characters();
 }, 2000);
 
 function itemsList(data){
@@ -59,13 +71,9 @@ let items_interval = setInterval(function(){
 		.then(data => itemsList(data));
 }, 2000);
 
-fetch("/characters")
-	.then(response => response.json())
-	.then(data => charactersList(data));
+load_data_characters();
+load_data_items();
 
-fetch("/items")
-	.then(response => response.json())
-	.then(data => itemsList(data));
 //fetch("/characters")
 	/*
 	.then(function(response){
