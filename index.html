@@ -48,7 +48,8 @@ function load_data_items () {
 function charactersList(data){
 	let list = "";
 	for (let i = 0; i < data.length; i++){
-		list += '<li><a href="/characters/'+data[i]._id+'">'+data[i].name+'</a></li>';
+		//list += '<li><a href="/characters/'+data[i]._id+'">'+data[i].name+'</a>+<a href="/remove/'+data[i].id_character+'">'+data[i].name+'</a></li>';
+		list += "<li> <a href=\"characters/" + data[i]._id + "\">" + data[i].name + "</a><a href=\"remove/" + data[i].id_character  + "\" > X</a></li>";
 	}
 	document.getElementById("characters-list").innerHTML = list;
 }

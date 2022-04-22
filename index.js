@@ -54,8 +54,8 @@ function send_data_list (db, req, res) {
 		col_data = db.collection(col).find({}, { projection: { item:1 }});
 		
 	}
-	else {
-		col_data = db.collection(col).find({}, { projection: { name:1 }});
+	else if(col == "characters"){
+		col_data = db.collection(col).find({}, { projection: { name:1, id_character:1 }});
 	}
 
 
@@ -93,10 +93,10 @@ http.createServer(function(req, res){
 		send_data_list(db, req, res);
 	}
 	else {
-		if(url[2].length != 24){
+		/*if(url[2].length != 24){
 			res.end();
 			return;
-		}
+		}*/
 		if(url[1] == "characters"){
 			console.log(url[2]);
 			let objID = new ObjectID(url[2]);
@@ -120,6 +120,12 @@ http.createServer(function(req, res){
 			});
 
 		}
+
+		else if(url[1] == "remove"){
+			db.collection("characters").deleteOne({"id_character" : parseInt(url[2])});
+			res.end("OKAYY");
+		}
+
 	}
 
 	//let coll_data = db.collection(col).find();
